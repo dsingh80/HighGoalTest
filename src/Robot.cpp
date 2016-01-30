@@ -49,15 +49,12 @@ void Robot::DisabledPeriodic() {
 void Robot::AutonomousInit() {
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
+	//(new HighGoalSubsystem())->S
 }
 
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
-	printf("---------%d---------\n", Robot::highGoalSubsystem->leftCanTalon->GetEncVel());
-	if(Robot::highGoalSubsystem->leftCanTalon->GetEncVel()>=600)
-	{
-		RobotMap::isDone=true;
-	}
+	// printf("---------%d---------\n", Robot::highGoalSubsystem->leftCanTalon->GetEncVel());
 }
 
 void Robot::TeleopInit() {

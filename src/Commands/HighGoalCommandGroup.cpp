@@ -29,7 +29,9 @@ HighGoalCommandGroup::HighGoalCommandGroup() {
     // e.g. AddParallel(new Command1());
     //      AddSequential(new Command2());
     // Command1 and Command2 will run in parallel.
-	AddSequential(new HighGoalSpinWheels());
+	printf("Starting HighGoalSpinWheels\n");
+	//AddSequential(new HighGoalSpinWheels());
+	printf("Starting HighGoalShoot\n");
 	AddSequential(new HighGoalShoot());
 	printf("DONE WITH COMMAND GROUP\n");
 

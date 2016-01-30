@@ -24,30 +24,52 @@ HighGoalSpinWheels::HighGoalSpinWheels(): Command() {
 
 // Called just before this Command runs the first time
 void HighGoalSpinWheels::Initialize() {
-	Robot::highGoalSubsystem->rightCanTalon->SetControlMode(Robot::highGoalSubsystem->rightCanTalon->kFollower);
-	Robot::highGoalSubsystem->rightCanTalon->Set(5);  //set this to the canID of the left CanTalon
-	//Make leftCanTalon go to full speed
-	printf("Setting Encoder Speed\n");
-	Robot::highGoalSubsystem->leftCanTalon->Set(-.85);
-	printf("DID SET Encoder Speed\n");
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void HighGoalSpinWheels::Execute() {
+	Robot::highGoalSubsystem->rightCanTalon->SetControlMode(Robot::highGoalSubsystem->rightCanTalon->kFollower);
+	Robot::highGoalSubsystem->rightCanTalon->Set(5);  //set this to the canID of the left CanTalon
 
+	if(Robot::oi->gethighGoalJoystick()->GetRawButton(1)) {
+		Robot::highGoalSubsystem->leftCanTalon->Set(-.73);
+	}
+
+	if(Robot::oi->gethighGoalJoystick()->GetRawButton(3)) {
+			Robot::highGoalSubsystem->leftCanTalon->Set(0);
+	}
+
+	if(Robot::oi->gethighGoalJoystick()->GetRawButton(4)){
+		Robot::highGoalSubsystem->highGoalSolenoid->Set(true);
+	}
+
+	if(Robot::oi->gethighGoalJoystick()->GetRawButton(2)){
+		Robot::highGoalSubsystem->highGoalSolenoid->Set(false);
+	}
+	//Make leftCanTalon go to full speed
+	//printf("Setting Encoder Speed\n");
+	//Robot::highGoalSubsystem->leftCanTalon->Set(-.85);
+	//printf("DID SET Encoder Speed\n");
+
+	//printf("---------%d---------\n", Robot::highGoalSubsystem->leftCanTalon->GetEncVel());
+	// while(Robot::highGoalSubsystem->leftCanTalon->GetEncVel()<600) {
+	//	End();
+	// }
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool HighGoalSpinWheels::IsFinished() {
-	if(RobotMap::isDone==true){
-		return true;
-	}
-    return false;
+	//printf("---------%d---------\n", Robot::highGoalSubsystem->leftCanTalon->GetEncVel());
+	// printf("Checking encoder value in isFinished\n");
+	// return Robot::highGoalSubsystem->leftCanTalon->GetEncVel()>=1000;
+	return false;
 }
 
 // Called once after isFinished returns true
 void HighGoalSpinWheels::End() {
-
+	printf("I'm outta here");
+	Robot::highGoalSubsystem->leftCanTalon->Set(0);
 }
 
 // Called when another command which requires one or more of the same
